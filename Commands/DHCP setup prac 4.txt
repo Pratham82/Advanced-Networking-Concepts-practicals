@@ -1,0 +1,50 @@
+For router 0
+-------------
+en
+configure terminal
+interface gig0/0/0
+ip address 10.0.0.1 255.0.0.0
+no shutdown
+exit
+
+interface se0/1/0
+ip address 40.0.0.1 255.0.0.0
+no shutdown
+
+
+or router 1
+------------
+en
+configure terminal
+
+interface gig0/0/0
+ip address 20.0.0.1 255.0.0.0
+no shutdown
+
+interface se0/1/0
+ip address 40.0.0.2 255.0.0.0
+ip address 50.0.0.1 255.0.0.0
+no shutdown
+
+
+For router 2
+------------
+en
+configure t
+interface gig0/0/0
+ip address 30.0.0.1 255.0.0.0
+no shutdown
+
+exit
+interface se0/1/0
+ip address 50.0.0.2 255.0.0.0
+no shutdown
+exit
+
+//Go to router 0
+ip dhcp pool mypool
+network 10.0.0.0 255.0.0.0
+default-router 10.0.0.1
+exit
+ip dhcp excluded-address 10.0.0.2
+exit

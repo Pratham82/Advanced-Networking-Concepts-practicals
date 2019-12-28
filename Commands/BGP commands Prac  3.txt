@@ -1,0 +1,68 @@
+
+For router 0
+-------------
+en
+configure terminal
+interface gig0/0/0
+ip address 10.0.0.1 255.0.0.0
+no shutdown
+exit
+
+interface se0/1/0
+ip address 40.0.0.1 255.0.0.0
+no shutdown
+
+router bgp 100
+neighbor 40.0.0.2 remote-as 200
+network 10.0.0.0
+network 40.0.0.0
+
+
+For router 1
+------------
+en
+configure terminal
+
+interface gig0/0/0
+ip address 20.0.0.1 255.0.0.0
+no shutdown
+
+interface se0/1/0
+ip address 40.0.0.2 255.0.0.0
+ip address 50.0.0.1 255.0.0.0
+no shutdown
+
+router bgp 200
+neighbor 50.0.0.2 remote-as 300
+neighbor 40.0.0.1 remote-as 100
+//Router(config-router)#%BGP-5-ADJCHANGE: neighbor 40.0.0.1 Up
+
+network 20.0.0.0
+network 40.0.0.0
+network 50.0.0.0
+exit
+//Router(config)#%BGP-5-ADJCHANGE: neighbor 50.0.0.2 Up
+
+
+For router 2
+------------
+en
+configure t
+interface gig0/0/0
+ip address 30.0.0.1 255.0.0.0
+no shutdown
+
+exit
+interface se0/1/0
+ip address 50.0.0.2 255.0.0.0
+no shutdown
+exit
+
+router bgp 300
+neighbor 50.0.0.1 remote-as 200
+//Router(config-router)#%BGP-5-ADJCHANGE: neighbor 50.0.0.1 Up
+
+network 30.0.0.0
+network 50.0.0.0
+exit
+
